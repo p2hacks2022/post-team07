@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class StorySceneController : MonoBehaviour
 {
+
+    public FadeController myFade;
 
     //画面上のテキストオブジェクト
     [SerializeField]
@@ -26,6 +29,9 @@ public class StorySceneController : MonoBehaviour
     //現在の行番号
     private int currentLine = 0;
 
+    //マウスが押されたかどうか示す変数
+    private bool isPush = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,15 +47,24 @@ public class StorySceneController : MonoBehaviour
     void Update()
     {
         //行番号が最後まで行っていない状態でマウスを左クリックすると、テキスト更新
-        if(currentLine < scenarios.Length && Input.GetMouseButtonDown(0))
+        if(isPush == false && currentLine < scenarios.Length && Input.GetMouseButtonDown(0))
         {
             //コルーチン開始
             StartCoroutine("SetText");
+        }
+
+        //最後の行番号まで行ったら
+        if(currentLine == scenarios.Length){
+            //シーン替え用コルーチン開始
+            StartCoroutine("ChangeScene");
         }
     }
 
     IEnumerator SetText()
     {
+        //2度おし防止用
+        isPush =true;
+        
         //現在の行番号の文章を、カンマで分割
         wordArray = scenarios[currentLine].Split(',');
 
@@ -65,5 +80,15 @@ public class StorySceneController : MonoBehaviour
 
         //行番号を更新
         currentLine++;
+
+        //マウスクリックで進むようにする
+        isPush = false;
+    }
+
+    IEnumerator ChangeScene()
+    {
+        myFade.isFadeOut = true;
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene("GameScene");
     }
 }
