@@ -22,10 +22,10 @@ public class RandomTreeMake_Manager : MonoBehaviour
     void Start()
     {
         //縦のマス目分のfor文
-        for (int j = 0; j < 8; j++)
+        for (int j = 0; j < 9; j++)
         {
             //横のマス目文のfor文
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 8; i++)
             {
 
                 //1～100の中からランダムに値一つ生成
