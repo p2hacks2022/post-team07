@@ -17,6 +17,8 @@ public class SoundSetting : MonoBehaviour
     }
     public void SetSound(float volume)
     {
+        /* スライダーの位置によってSound_Volumeのvolumeが変動
+          (スライダーとAudioSourceのVolumeが連動) */
         audioMixer.SetFloat("Sound_Volume", volume);
     }
 }
