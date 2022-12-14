@@ -5,21 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class ToTitleScene : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     // ToTitleButtonが押された際に呼び出される
     public void ToTitleButton()
     {
-        SceneManager.LoadScene("TitleScene");
+        // コルーチンが呼び出される
+        StartCoroutine("ToTitleSceneCoroutine");
+    }
+    private IEnumerator ToTitleSceneCoroutine()
+    {
+        // ボタンクリック時にSEが鳴る
+        GetComponent<AudioSource>().Play();
+
+        yield return new WaitForSeconds(0.4f);
+
+        // TitleSceneに遷移
+        SceneManager.LoadScene("TitleScene"); 
     }
 }
