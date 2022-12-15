@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HouseController : MonoBehaviour
+public class FarmController : MonoBehaviour
 {
-
     //‰½•b‚Éˆê‰ñ‘Ì—Í‚ªŒ¸‚é‚©
     [SerializeField]
     private float decreaseHealth = 5.0f;
@@ -27,6 +26,7 @@ public class HouseController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
     }
 
     // Update is called once per frame

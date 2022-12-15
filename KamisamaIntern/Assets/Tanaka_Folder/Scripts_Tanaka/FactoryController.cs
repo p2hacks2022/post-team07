@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HouseController : MonoBehaviour
+public class FactoryController : MonoBehaviour
 {
-
     //‰½•b‚Éˆê‰ñ‘Ì—Í‚ªŒ¸‚é‚©
     [SerializeField]
     private float decreaseHealth = 5.0f;
