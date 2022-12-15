@@ -14,15 +14,13 @@ public class FieldController : MonoBehaviour
 
     //複製する動物オブジェクト
     [SerializeField]
-    private GameObject Animal;
+    private GameObject animal;
 
     //確率を求める際の条件の最大値
-    [SerializeField]
-    private int max;
+    public int max;
 
     //確率を求める際の条件の最小値
-    [SerializeField]
-    private int min;
+    public int min;
 
     //Fieldにオブジェクトが重なっているかの判定
     private bool isTrigger = false;
@@ -39,11 +37,13 @@ public class FieldController : MonoBehaviour
     {
         //ゲーム内経過時間を代入
         time += Time.deltaTime;
+
         //一定間隔で作動
         if(time > span)
         {
             //動物を生み出す
             SpawnAnimal();
+
             //時間を0にする
             time = 0f;
         }
@@ -54,6 +54,7 @@ public class FieldController : MonoBehaviour
     {
         //整数をランダムで生成
         int rnd = Random.Range(0, 200);
+
         //乱数が最小値以上最大値未満だったら
         if(rnd >= min && rnd < max)
         {
@@ -61,7 +62,10 @@ public class FieldController : MonoBehaviour
             if(isTrigger == false)
             {
                 //動物を自分の上に複製
-                Instantiate(Animal, this.transform.position, Quaternion.identity);
+                GameObject cloneAnimal = Instantiate(animal, this.transform.position, Quaternion.identity);
+                
+                //Fieldを親に指定
+                cloneAnimal.transform.parent = this.transform;
             }
         }
     }
