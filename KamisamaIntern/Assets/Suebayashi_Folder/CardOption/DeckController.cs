@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using DG.Tweening;
 public class DeckController : MonoBehaviour
 {
     // DeckのPrefab
     [SerializeField] 
-    Image deckPrefab;
+    Image cardPrefab;
 
     // 山札の枚数
     [SerializeField] 
@@ -35,17 +35,22 @@ public class DeckController : MonoBehaviour
     [SerializeField]
     private Sprite[] deckType;
 
-    // カード保持用のListの初期化
+    //スキルカードの種類数
+    [SerializeField]
+    private int deckTypeNum;
+
+    // 山札カード用のListの初期化
     List<Image> deckCards = new List<Image>();
 
     // Start is called before the first frame update
     void Start()
     {
+        // 山札を作る
         for (int i = 0; i < deckCardNum; i++)
         {
-            Image c = Instantiate(deckPrefab, transform, false);
+            Image c = Instantiate(cardPrefab, transform, false);
 
-            //追記　Listにcardを追加していく
+            //Listにcardを追加していく
             deckCards.Add(c);
         }
 
@@ -61,75 +66,66 @@ public class DeckController : MonoBehaviour
 
     void MoveCards()
     {
-        Debug.Log("カードが追加される");
+        Debug.Log("カードが追加された");
 
-        // カードの効果をランダムに選ぶ
-        int deckTypeNum = Random.Range(0,5);  
-
-        // 始めに手札に3枚取り出す
-        if(nowCardNum == 0)
+        if ((nowCardNum+1) <= deckCards.Count)
         {
-            for(int i=0; i<3; i++)
+            if (nowCardNum == 0)
             {
-                // カードの効果をランダムに選ぶ
-                deckTypeNum = Random.Range(0, 5);
+                for (int i = 0; i < 3; i++)
+                {
+                    // カードの効果をランダムに選ぶ
+                    int randomDeckTypeNum2 = Random.Range(0, deckTypeNum);
 
-                // 選んだカードの効果画像を設定する
-                deckCards[i].sprite = deckType[deckTypeNum];
+                    // 選んだカードの効果画像を設定する
+                    deckCards[i].sprite = deckType[randomDeckTypeNum2];
+                }
+
+                // 山札から手札の3枚目に1枚移動
+                deckCards[0].transform.DOMove(card3Tf.position, 1.0f)
+                    .SetEase(Ease.InCirc)
+                    .OnComplete(() => deckCards[0].transform.SetParent(card3Tf));
+                // 山札から手札の2枚目に1枚移動
+                deckCards[1].transform.DOMove(card2Tf.position, 1.0f)
+                    .SetEase(Ease.InCirc)
+                    .OnComplete(() => deckCards[1].transform.SetParent(card2Tf));
+
+                nowCardNum += 2;
             }
 
-            //deckカードをカード3の子要素にする
-            deckCards[0].transform.SetParent(card3Tf);
-            //カードのlocalPositionを0にする
-            deckCards[0].transform.localPosition = Vector2.zero;
+            // カードの効果をランダムに選ぶ
+            int randomDeckTypeNum = Random.Range(0, deckTypeNum);
 
-            //deckカードをカード2の子要素にする
-            deckCards[1].transform.SetParent(card2Tf);
-            //カードのlocalPositionを0にする
-            deckCards[1].transform.localPosition = Vector2.zero;
-
-            //deckカードをカード1の子要素にする
-            deckCards[2].transform.SetParent(card1Tf);
-            //カードのlocalPositionを0にする
-            deckCards[2].transform.localPosition = Vector2.zero;
-
-            nowCardNum += 2;
-        }
-        else if ((nowCardNum+1) <= deckCards.Count)
-        {
             // 選んだカードの効果画像を設定する
-            deckCards[nowCardNum].sprite = deckType[deckTypeNum];
+            deckCards[nowCardNum].sprite = deckType[randomDeckTypeNum];
 
-            //deckカードをカード1の子要素にする
-            deckCards[nowCardNum].transform.SetParent(card1Tf);
-
-            //カードのlocalPositionを0にする
-            deckCards[nowCardNum].transform.localPosition = Vector2.zero;
-
+            // 山札から手札の1枚目に1枚移動
+            deckCards[nowCardNum].transform.DOMove(card1Tf.position, 1.0f)
+                .SetEase(Ease.InCirc)
+                .OnComplete(() => deckCards[nowCardNum].transform.SetParent(card1Tf));
 
             if (nowCardNum > 0)
             {
-                //カード1をカード2の子要素にする
-                deckCards[nowCardNum - 1].transform.SetParent(card2Tf);
-
-                //カード1のlocalPositionを0にする
-                deckCards[nowCardNum - 1].transform.localPosition = Vector2.zero;
+                // 手札1枚目から手札2枚目へカードが移動
+                deckCards[nowCardNum - 1].transform.DOMove(card2Tf.position, 1.0f)
+                    .SetEase(Ease.InCirc)
+                    .OnComplete(() => deckCards[nowCardNum - 1].transform.SetParent(card2Tf));
             }
+            
             if (nowCardNum > 1)
             {
-                //カード2をカード3の子要素にする
-                deckCards[nowCardNum - 2].transform.SetParent(card3Tf);
-
-                //カード2のlocalPositionを0にする
-                deckCards[nowCardNum - 2].transform.localPosition = Vector2.zero;
+                // 手札2枚目から手札3枚目へカードが移動
+                deckCards[nowCardNum - 2].transform.DOMove(card3Tf.position, 1.0f)
+                    .SetEase(Ease.InCirc)
+                    .OnComplete(() => deckCards[nowCardNum - 2].transform.SetParent(card3Tf));
             }
 
             if (nowCardNum > 2)
             {
-                //カード3をdeckカードの子要素にする
+                //手札3枚目から山札に1枚移動
                 deckCards[nowCardNum - 3].transform.SetParent(deckTf);
 
-                //カード3のlocalPositionを0にする
+                //手札3枚目から山札に1枚移動
                 deckCards[nowCardNum - 3].transform.localPosition = Vector2.zero;
             }
 
