@@ -25,10 +25,12 @@ public class MutationCard : MonoBehaviour
         //取得した草原全てに操作を行う
         foreach (GameObject field in fields)
         {
-            //fieldのFieldControllerを取得
-            FieldController myField = field.GetComponent<FieldController>();
-            //確率を求める際の最大値を更新
-            myField.max = 20;
+            if(field.GetComponent<FieldController>() != null){
+                //fieldのFieldControllerを取得
+                FieldController myField = field.GetComponent<FieldController>();
+                //確率を求める際の最大値を更新
+                myField.max = 20;
+            }
         }
     }
 }
