@@ -27,6 +27,8 @@ public class DeckController : MonoBehaviour
     Transform card2Tf;
     [SerializeField]
     Transform card3Tf;
+    [SerializeField]
+    Transform deckTf;
     /* ------------------- */
 
     // カードの種類保持用の配列の初期化
@@ -64,6 +66,7 @@ public class DeckController : MonoBehaviour
         // カードの効果をランダムに選ぶ
         int deckTypeNum = Random.Range(0,5);  
 
+        // 始めに手札に3枚取り出す
         if(nowCardNum == 0)
         {
             for(int i=0; i<3; i++)
@@ -90,7 +93,7 @@ public class DeckController : MonoBehaviour
             //カードのlocalPositionを0にする
             deckCards[2].transform.localPosition = Vector2.zero;
 
-            nowCardNum++;
+            nowCardNum += 2;
         }
         else if ((nowCardNum+1) <= deckCards.Count)
         {
@@ -123,7 +126,11 @@ public class DeckController : MonoBehaviour
 
             if (nowCardNum > 2)
             {
-                Destroy(deckCards[nowCardNum - 3]);
+                //カード3をdeckカードの子要素にする
+                deckCards[nowCardNum - 3].transform.SetParent(deckTf);
+
+                //カード3のlocalPositionを0にする
+                deckCards[nowCardNum - 3].transform.localPosition = Vector2.zero;
             }
 
             nowCardNum++;
