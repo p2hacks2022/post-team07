@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DeckController : MonoBehaviour
 {
     // DeckのPrefab
     [SerializeField] 
-    GameObject deckPrefab;
+    Image deckPrefab;
 
-    // 生成するカードの種類数
+    // 山札の枚数
     [SerializeField] 
     int deckCardNum;
 
@@ -30,17 +31,17 @@ public class DeckController : MonoBehaviour
 
     // カードの種類保持用の配列の初期化
     [SerializeField]
-    private GameObject[] deckvariety;
+    private Sprite[] deckType;
 
     // カード保持用のListの初期化
-    List<GameObject> deckCards = new List<GameObject>();
+    List<Image> deckCards = new List<Image>();
 
     // Start is called before the first frame update
     void Start()
     {
         for (int i = 0; i < deckCardNum; i++)
         {
-            GameObject c = Instantiate(deckPrefab, transform, false);
+            Image c = Instantiate(deckPrefab, transform, false);
 
             //追記　Listにcardを追加していく
             deckCards.Add(c);
@@ -60,8 +61,14 @@ public class DeckController : MonoBehaviour
     {
         Debug.Log("カードが追加される");
 
+        // カードの効果をランダムに選ぶ
+        int deckTypeNum = Random.Range(0,5);  
+
         if ((nowCardNum+1) <= deckCards.Count)
         {
+            // 選んだカードの効果画像を設定する
+            deckCards[nowCardNum].sprite = deckType[deckTypeNum];
+
             //deckカードをカード1の子要素にする
             deckCards[nowCardNum].transform.SetParent(card1Tf);
 
