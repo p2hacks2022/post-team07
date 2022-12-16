@@ -103,15 +103,20 @@ public class CardController : MonoBehaviour
         /* 選択したカードの判別を行う */
 
         isChoseCard = false;
+        canChooseCard = false;
         isSimulatedOnMap = true;
 
         SimulateOnMap();
     }
 
     // カードがクリックされた際に呼び出される関数
-    private void CardClicked()
+    public void CardClicked()
     {
-        /* カードがクリックされた際に行う処理 */
-        isChoseCard = true;
+        if (canChooseCard == true)
+        {
+            /* カードがクリックされた際に行う処理 */
+            isChoseCard = true;
+            ChoseCard();
+        }
     }
 }
