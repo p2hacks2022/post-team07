@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class CardController : MonoBehaviour
 {
@@ -24,6 +26,10 @@ public class CardController : MonoBehaviour
     // カードを選択する際の制限時間の初期値を保存
     private float defaultCountTimeOfChoosingCard;
 
+
+    //RaycastAllの引数
+    private PointerEventData pointData;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,15 +37,49 @@ public class CardController : MonoBehaviour
 
         // 始めにマップでシミュレート
         SimulateOnMap();
+
+
+        //RaycastAllの引数PointerEvenDataを作成
+        pointData = new PointerEventData(EventSystem.current);
     }
 
     // Update is called once per frame
     void Update()
     {
+        /* カードを選ぶたいむに入る */
         if (canChooseCard == true)
         {
+            // カウントダウン開始
             CountTimeOfChoosingCard();
+
+            /* ------------------------カードをクリックした際の処理------------------------ */
+
+            //RaycastAllの結果格納用のリスト作成
+            List<RaycastResult> RayResult = new List<RaycastResult>();
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                //PointerEvenDataに、マウスの位置をセット
+                pointData.position = Input.mousePosition;
+
+                //RayCast（スクリーン座標）
+                EventSystem.current.RaycastAll(pointData, RayResult);
+
+                foreach (RaycastResult result in RayResult)
+                {
+                    if (result.gameObject.name == "CardImage(Clone)")
+                    {
+                        /* カードがクリックされた際に行う処理 */
+                        Debug.Log("選ばれたカード："　+ result.gameObject.tag);
+                        isChoseCard = true;
+                        ChoseCard();
+                    }
+                }
+            }
+
+            /* ------------------------------------------------------------------- */
         }
+        /* ---------------------------------------------- */
     }
 
     // シミュレートが開始された際に行う処理
@@ -98,23 +138,10 @@ public class CardController : MonoBehaviour
     {
         Debug.Log("カードが選択された");
 
-        /* 選択したカードの判別を行う */
-
         isChoseCard = false;
         canChooseCard = false;
         isSimulatedOnMap = true;
 
         SimulateOnMap();
-    }
-
-    // カードがクリックされた際に呼び出される関数
-    public void CardClicked()
-    {
-        if (canChooseCard == true)
-        {
-            /* カードがクリックされた際に行う処理 */
-            isChoseCard = true;
-            ChoseCard();
-        }
     }
 }

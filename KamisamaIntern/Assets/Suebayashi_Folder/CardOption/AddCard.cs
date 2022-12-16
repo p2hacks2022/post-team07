@@ -84,6 +84,8 @@ public class AddCard : MonoBehaviour
 
             // 選んだカードの効果画像を設定する
             allCards[i].sprite = cardType[randomDeckTypeNum];
+            // 画像に応じてタグを設定
+            allCards[i].tag = cardType[randomDeckTypeNum].name;
         }
 
         /* ----------------山札から手札3枚目への移動-------------- */
@@ -114,6 +116,8 @@ public class AddCard : MonoBehaviour
             int randomDeckTypeNum = Random.Range(0, cardTypeNum);
             // 選んだカードの効果画像を設定する
             allCards[nowCardNum].sprite = cardType[randomDeckTypeNum];
+            // 画像に応じてタグを設定
+            allCards[nowCardNum].tag = cardType[randomDeckTypeNum].name;
 
             allCards[nowCardNum].transform.SetParent(card1Tf);
             allCards[nowCardNum].transform.localPosition = Vector2.zero;
