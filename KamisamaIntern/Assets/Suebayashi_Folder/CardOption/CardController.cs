@@ -8,7 +8,7 @@ public class CardController : MonoBehaviour
     public static bool canChooseCard = false;
 
     // シミュレートターン
-    private bool isSimulatedOnMap;
+    public static bool isSimulatedOnMap = true;
 
     // カードが選択されたかどうか
     private bool isChoseCard = false;
@@ -55,9 +55,7 @@ public class CardController : MonoBehaviour
     // カードが1枚追加され、1枚破棄される処理
     private void AddCard()
     {
-        Debug.Log("カードが1枚追加される");
-
-        /* カードが一枚追加され、1枚破棄される処理 */
+        Debug.Log("カードが追加される");
 
         Invoke("AllowChooseCard", timeOfSimulation);
     }
@@ -65,7 +63,7 @@ public class CardController : MonoBehaviour
     // カード選択可能時間に行われる処理
     private void AllowChooseCard()
     {
-        isSimulatedOnMap = false;
+        isSimulatedOnMap = false; // ここで、AddCardスクリプトでAddAndDiscardCard関数が実行される
         canChooseCard = true;
 
         Debug.Log("カードを選択するたいむ");
