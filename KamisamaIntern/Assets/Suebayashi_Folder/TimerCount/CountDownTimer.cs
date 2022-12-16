@@ -33,8 +33,11 @@ public class CountDownTimer : MonoBehaviour
 			return;
 		}
 		//　一旦トータルの制限時間を計測；
-		totalTime = minute * 60 + seconds;
-		totalTime -= Time.deltaTime;
+		if (CardController.canChooseCard == false)
+		{
+			totalTime = minute * 60 + seconds;
+			totalTime -= Time.deltaTime;
+		}
 
 		//　再設定
 		minute = (int)totalTime / 60;
@@ -47,7 +50,7 @@ public class CountDownTimer : MonoBehaviour
 		}
 		oldSeconds = seconds;
 		//　制限時間以下になったらコンソールにEndingSceneに遷移
-		if (totalTime <= 0f)
+		if (totalTime < 1.0f)
 		{
 			// EndingSceneに遷移
 			SceneManager.LoadScene("EndingScene");

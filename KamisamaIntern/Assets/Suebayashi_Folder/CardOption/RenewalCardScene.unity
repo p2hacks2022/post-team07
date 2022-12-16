@@ -389,10 +389,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0c4510f9ade4314fa31e334fb44983e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isChoseCard: 0
   countTimeOfChoosingCard: 10
   timeOfSimulation: 10
-  defaultCountTimeOfChoosingCard: 0
 --- !u!1 &90111852
 GameObject:
   m_ObjectHideFlags: 0
@@ -8034,7 +8032,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 7878020609961320746, guid: 0188766e67b075848ba97010985c7076, type: 3}
   allCardNum: 20
-  nowCardNum: 0
   card1Tf: {fileID: 1025742929}
   card2Tf: {fileID: 233630405}
   card3Tf: {fileID: 1519476382}
@@ -8051,8 +8048,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d1d449819907a0447a86010599380587, type: 3}
   - {fileID: 21300000, guid: 9cdbd66dcea27694db9bce503b3f8c03, type: 3}
   cardTypeNum: 10
-  allCards: []
-  isAddedFirst: 0
 --- !u!1 &1288851740
 GameObject:
   m_ObjectHideFlags: 0
