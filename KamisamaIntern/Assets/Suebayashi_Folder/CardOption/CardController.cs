@@ -13,7 +13,7 @@ public class CardController : MonoBehaviour
     public static bool isSimulatedOnMap = true;
 
     // カードが選択されたかどうか
-    private bool isChoseCard = false;
+    public static bool isChoseCard = false;
 
     // カード選択ターンの制限時間
     [SerializeField]
@@ -57,23 +57,24 @@ public class CardController : MonoBehaviour
             //RaycastAllの結果格納用のリスト作成
             List<RaycastResult> RayResult = new List<RaycastResult>();
 
-            if (Input.GetMouseButtonDown(0))
+            //PointerEvenDataに、マウスの位置をセット
+            pointData.position = Input.mousePosition;
+
+            //RayCast（スクリーン座標）
+            EventSystem.current.RaycastAll(pointData, RayResult);
+
+            foreach (RaycastResult result in RayResult)
             {
-                //PointerEvenDataに、マウスの位置をセット
-                pointData.position = Input.mousePosition;
-
-                //RayCast（スクリーン座標）
-                EventSystem.current.RaycastAll(pointData, RayResult);
-
-                foreach (RaycastResult result in RayResult)
+                if (result.gameObject.name == "CardImage(Clone)")
                 {
-                    if (result.gameObject.name == "CardImage(Clone)")
+                    if (Input.GetMouseButtonDown(0))
                     {
                         /* カードがクリックされた際に行う処理 */
-                        Debug.Log("選ばれたカード："　+ result.gameObject.tag);
+                        Debug.Log("選ばれたカード：" + result.gameObject.tag);
                         isChoseCard = true;
                         ChoseCard();
                     }
+
                 }
             }
 
