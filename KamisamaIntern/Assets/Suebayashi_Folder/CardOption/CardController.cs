@@ -8,7 +8,7 @@ public class CardController : MonoBehaviour
     public static bool canChooseCard = false;
 
     // シミュレートターン
-    private bool isSimulatedOnMap;
+    public static bool isSimulatedOnMap = true;
 
     // カードが選択されたかどうか
     private bool isChoseCard = false;
