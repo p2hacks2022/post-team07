@@ -8043,7 +8043,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 822a5b3cbd3aa7c4ab8394f7944e057f, type: 3}
   - {fileID: 21300000, guid: c6a6bfa9a3bbc3a4297c2e3e8ffeb419, type: 3}
   - {fileID: 21300000, guid: 53fd05311b390b246819d56fcb84c47b, type: 3}
-  cardTypeNum: 6
+  - {fileID: 21300000, guid: 9c1f5874d3d0ff442b5c758ea9498fd0, type: 3}
+  - {fileID: 21300000, guid: e2691034e215bde4385cd8b32938a762, type: 3}
+  - {fileID: 21300000, guid: d1d449819907a0447a86010599380587, type: 3}
+  - {fileID: 21300000, guid: 9cdbd66dcea27694db9bce503b3f8c03, type: 3}
+  cardTypeNum: 10
 --- !u!1 &1288851740
 GameObject:
   m_ObjectHideFlags: 0

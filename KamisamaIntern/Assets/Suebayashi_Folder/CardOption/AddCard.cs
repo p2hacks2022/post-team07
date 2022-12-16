@@ -68,7 +68,7 @@ public class AddCard : MonoBehaviour
         // ‡@ˆÈ~ARD‚©‚ç1–‡èD‚É’Ç‰Á‚³‚ê‚é‚ÆèD‚©‚ç1–‡”pŠü‚³‚ê‚é
         else if(CardController.isSimulatedOnMap == true && isAddedFirst == true)
         {
-            AddedCard();
+            AddAndDiscardCard();
 
             CardController.isSimulatedOnMap = false;
         }
@@ -104,7 +104,7 @@ public class AddCard : MonoBehaviour
         nowCardNum = 3;
     }
 
-    private void AddedCard()
+    private void AddAndDiscardCard()
     {
         if ((nowCardNum + 1) <= allCards.Count)
         {
