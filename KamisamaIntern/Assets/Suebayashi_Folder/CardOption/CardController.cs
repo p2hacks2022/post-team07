@@ -43,7 +43,10 @@ public class CardController : MonoBehaviour
     // カーソル置いている画像のタグを保存
     public static string tagCursorOnCard;
 
+    // カードの情報を提示するかどうか
     public static bool shouldShowCardInfomation;
+
+    public CardSkillController cardSkillController;
 
     // Start is called before the first frame update
     void Start()
@@ -176,13 +179,45 @@ public class CardController : MonoBehaviour
     }
 
     // 決定ボタンをクリックした際に行う処理
-    public static void PushChooseCardButton()
+    public void PushChooseCardButton()
     {
         // カードを選べるたいむでカードを選んでいたら
         if (canChooseCard == true　&& isChoseCard == true)
         {
             isPushedChooseCardButton = true;
             Debug.Log("選ばれたカード：" + choseCardTag);
+
+            switch (choseCardTag)
+            {
+                case "kaminari":
+                    cardSkillController.ThunderCardEffect();
+                    break;
+                case "rain":
+                    cardSkillController.RainCardEffect();
+                    break;
+                case "sun":
+                    cardSkillController.SunCardEffect();
+                    break;
+                case "world_tree":
+                    cardSkillController.PlantCardEffect();
+                    break;
+                case "mutant":
+                    cardSkillController.MutationCardEffect();
+                    break;
+                case "innseki":
+                    cardSkillController.MeteorCardEffect();
+                    break;
+                case "virus":
+                    cardSkillController.DiseaseCardEffect();
+                    break;
+                case "heavy_rain":
+                    cardSkillController.HeavyRainCardEffect();
+                    break;
+                default:
+                    Debug.Log("まだ作られていないカード");
+                    break;
+                    
+            }
         }
     }
 }
