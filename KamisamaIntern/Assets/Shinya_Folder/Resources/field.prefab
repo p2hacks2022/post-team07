@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6736965727197820748}
   m_Layer: 0
   m_Name: field
-  m_TagString: Untagged
+  m_TagString: Field
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   time: 0
   span: 1
-  Animal: {fileID: 8303809734696076542, guid: 6eb3e3bf74bced64a99a46d54af4c1dc, type: 3}
+  animal: {fileID: 8303809734696076542, guid: 6eb3e3bf74bced64a99a46d54af4c1dc, type: 3}
   max: 10
   min: 0
 --- !u!61 &3243201410358569008

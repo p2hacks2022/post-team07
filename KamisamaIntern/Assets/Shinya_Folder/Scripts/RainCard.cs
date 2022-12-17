@@ -44,7 +44,8 @@ public class RainCard : MonoBehaviour
                     GameObject cloneTree = Instantiate(prefab, field.transform.position, Quaternion.identity);
 
                     //treeの親をfieldに指定
-                    cloneTree.transform.parent = field.transform;
+                    //cloneTree.transform.parent = field.transform;
+                    Destroy(field);
                     
                     Debug.Log("木を作成");
                 }

@@ -65,7 +65,8 @@ public class FieldController : MonoBehaviour
                 GameObject cloneAnimal = Instantiate(animal, this.transform.position, Quaternion.identity);
                 
                 //Fieldを親に指定
-                cloneAnimal.transform.parent = this.transform;
+                //cloneAnimal.transform.parent = this.transform;
+                Destroy(this.gameObject);
             }
         }
     }
