@@ -178,14 +178,14 @@ public class CardController : MonoBehaviour
         // カードを選ぶたいむの時間を刻む
         countTimeOfChoosingCard -= Time.deltaTime;
         Debug.Log(countTimeOfChoosingCard);
-        countTimeOfChoosingCardText.text = "あと" + Mathf.Round(countTimeOfChoosingCard*100.0f)/100 + "秒！";
+        countTimeOfChoosingCardText.text = "【カード選択モード】\n" + "  あと" + Mathf.Round(countTimeOfChoosingCard*100.0f)/100 + "秒！";
 
         // カウントの途中でカードが選択されたらその際の処理へ
         if (isChoseCard == true && isPushedChooseCardButton == true)
         {
             PanelFalse();
             countTimeOfChoosingCard = 0f;
-            countTimeOfChoosingCardText.text = " ";
+            countTimeOfChoosingCardText.text = "【シミュレーションモード】";
             countTimeOfChoosingCard = defaultCountTimeOfChoosingCard; // 制限時間の初期化
             canChooseCard = false;
             isPushedChooseCardButton = false;
@@ -198,7 +198,7 @@ public class CardController : MonoBehaviour
             NumOfChoosingcard = 0;
             PanelFalse();
             countTimeOfChoosingCard = 0f;
-            countTimeOfChoosingCardText.text = " ";
+            countTimeOfChoosingCardText.text = "【シミュレーションモード】";
             countTimeOfChoosingCard = defaultCountTimeOfChoosingCard; // 制限時間の初期化
             canChooseCard = false;
             isSimulatedOnMap = true;
