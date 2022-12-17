@@ -24,8 +24,17 @@ public class ThunderCard : MonoBehaviour
         //ボタン呼び出しの際の初期化
         burntCount = 0; 
 
+        //Listの宣言
+        List<GameObject> fields = new List<GameObject>();
+
         //Fieldタグが付いたオブジェクト＝草原を取得
-        GameObject[] fields = GameObject.FindGameObjectsWithTag("Field");
+        fields.AddRange(GameObject.FindGameObjectsWithTag("Field"));
+        
+        //Seaタグが付いたオブジェクト＝海を取得
+        fields.AddRange(GameObject.FindGameObjectsWithTag("Sea"));
+
+        //WorldTreeタグが付いたオブジェクト＝世界樹を取得
+        fields.AddRange(GameObject.FindGameObjectsWithTag("WorldTree"));
         Debug.Log("効果発動！！！");
 
         //取得した草原全てに操作を行う

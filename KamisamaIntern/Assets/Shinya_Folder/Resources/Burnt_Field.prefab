@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5280988148443183463}
   m_Layer: 0
   m_Name: Burnt_Field
-  m_TagString: Untagged
+  m_TagString: Burnt_Field
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
