@@ -4,22 +4,21 @@ using UnityEngine;
 
 public class FarmController : MonoBehaviour
 {
-    //‰½•b‚Éˆê‰ñ‘Ì—Í‚ªŒ¸‚é‚©
+    //ä½•ç§’ã«ä¸€å›ä½“åŠ›ãŒæ¸›ã‚‹ã‹
     [SerializeField]
     private float decreaseHealth = 5.0f;
 
-    //‘Ì—Í‚ªŒ¸­‚·‚é‚Ü‚Å‚ÌŠÔ
+    //ä½“åŠ›ãŒæ¸›å°‘ã™ã‚‹ã¾ã§ã®æ™‚é–“
     private float decreaseTime = 5.0f;
 
-    //”­“Wƒ|ƒCƒ“ƒg
+    //ç™ºå±•ãƒã‚¤ãƒ³ãƒˆ
     [SerializeField]
     private int developmentPoint;
 
-    //ƒ†ƒjƒbƒg‚Ì‘Ì—Í
-    [SerializeField]
-    private int health;
+    //ãƒ¦ãƒ‹ãƒƒãƒˆã®ä½“åŠ›
+    public int health;
 
-    //‘Ì—ÍãŒÀ
+    //ä½“åŠ›ä¸Šé™
     [SerializeField]
     private int maxHealth;
 
@@ -32,43 +31,43 @@ public class FarmController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //ŠÔŒo‰ßˆ—
+        //æ™‚é–“çµŒéå‡¦ç†
         decreaseTime -= Time.deltaTime;
 
-        //ŠÔ‚ª0‚É‚È‚Á‚½‚çs‚¤
+        //æ™‚é–“ãŒ0ã«ãªã£ãŸã‚‰è¡Œã†
         if (decreaseTime <= 0f)
         {
-            //‘Ì—Í‚ğ‚PŒ¸‚ç‚·
+            //ä½“åŠ›ã‚’ï¼‘æ¸›ã‚‰ã™
             health--;
 
-            //ŠÔ‚ğ‚à‚Æ‚É–ß‚·
+            //æ™‚é–“ã‚’ã‚‚ã¨ã«æˆ»ã™
             decreaseTime = 5.0f;
         }
 
-        //‘Ì—Í‚ª0‚É‚È‚Á‚½‚çs‚¤
+        //ä½“åŠ›ãŒ0ã«ãªã£ãŸã‚‰è¡Œã†
         if (health <= 0)
         {
-            //‚»‚ÌƒIƒuƒWƒFƒNƒg‚ğÁ‹‚·‚é
-            Destroy(this.gameObject);
+            //ãã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¶ˆå»ã™ã‚‹
+           // Destroy(this.gameObject);
         }
     }
 
-    //•¨‘Ì‚Æ‚Ô‚Â‚©‚Á‚½‚Æ‚«‚Ìˆ—
+    //ç‰©ä½“ã¨ã¶ã¤ã‹ã£ãŸã¨ãã®å‡¦ç†
     private void OnCollisionEnter2D(Collision2D col)
     {
-        //‚Ô‚Â‚©‚Á‚½ƒIƒuƒWƒFƒNƒg‚Ìƒ^ƒO‚Å•ªŠò
+        //ã¶ã¤ã‹ã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¿ã‚°ã§åˆ†å²
         switch (col.gameObject.tag)
         {
-            //“®•¨‚Ìê‡
+            //å‹•ç‰©ã®å ´åˆ
             case "Animal":
-                //‘Ì—Í‘‚â‚·
+                //ä½“åŠ›å¢—ã‚„ã™
                 health += 5;
-                //ŠÔ‚ğ‚à‚Æ‚É–ß‚·
+                //æ™‚é–“ã‚’ã‚‚ã¨ã«æˆ»ã™
                 decreaseTime = 5.0f;
-                //‘Ì—Í‚ÌãŒÀ‚ğ‰z‚µ‚Ä‚¢‚éê‡
+                //ä½“åŠ›ã®ä¸Šé™ã‚’è¶Šã—ã¦ã„ã‚‹å ´åˆ
                 if (health > maxHealth)
                 {
-                    //‘Ì—Í‚ğ‘Ì—ÍãŒÀ‚Ì”’l‚Ü‚Å–ß‚·
+                    //ä½“åŠ›ã‚’ä½“åŠ›ä¸Šé™ã®æ•°å€¤ã¾ã§æˆ»ã™
                     health = maxHealth;
                 }
                 break;
