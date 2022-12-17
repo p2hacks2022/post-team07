@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomTreeMake_Manager : MonoBehaviour
+public class GridManager : MonoBehaviour
 {
     //”wŒi‚Æ‚È‚éƒCƒ[ƒW[black]‚ğŠi”[‚·‚é
     [SerializeField]
@@ -40,12 +40,12 @@ public class RandomTreeMake_Manager : MonoBehaviour
                 }
 
                 //‰¡‚É‚Ğ‚Æ‚ÂˆÚ“®
-                firstposi_value_x += 0.88889f;
+                firstposi_value_x += 0.89f;
             }
 
             //x²•ûŒü‚ğ‰Šú’l‚ÉAy²•ûŒü‚Éˆê‚Â‰º‚É
             firstposi_value_x = -7.5f;
-            firstposi_value_y -= 0.88892f;
+            firstposi_value_y -= 0.88f;
         }
     }
 
