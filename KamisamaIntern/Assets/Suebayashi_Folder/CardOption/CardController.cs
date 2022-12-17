@@ -37,6 +37,8 @@ public class CardController : MonoBehaviour
     //RaycastAllの引数
     private PointerEventData pointData;
 
+    public static bool isPushedChooseCardButton;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -79,7 +81,6 @@ public class CardController : MonoBehaviour
                         /* カードがクリックされた際に行う処理 */
                         // 選択したカードのタグを保存
                         choseCardTag = result.gameObject.tag;
-                        Debug.Log("選ばれたカード：" + choseCardTag);
                         isChoseCard = true;
                         //ChoseCard();
                     }
@@ -129,16 +130,17 @@ public class CardController : MonoBehaviour
         countTimeOfChoosingCardText.text = "あと" + Mathf.Round(countTimeOfChoosingCard*100.0f)/100 + "秒！";
 
         // カウントの途中でカードが選択されたらその際の処理へ
-        if (isChoseCard == true)
+        if (isChoseCard == true && isPushedChooseCardButton == true)
         {
             countTimeOfChoosingCard = 0f;
             countTimeOfChoosingCardText.text = " ";
             countTimeOfChoosingCard = defaultCountTimeOfChoosingCard; // 制限時間の初期化
             canChooseCard = false;
+            isPushedChooseCardButton = false;
             ChoseCard();
         }
         // 何も選択されないままカウントが0になったらシミュレートへ
-        else if (isChoseCard == false && countTimeOfChoosingCard <= 0)
+        else if (countTimeOfChoosingCard <= 0 && isPushedChooseCardButton == false)
         {
             countTimeOfChoosingCard = 0f;
             countTimeOfChoosingCardText.text = " ";
@@ -159,5 +161,16 @@ public class CardController : MonoBehaviour
         isSimulatedOnMap = true;
 
         SimulateOnMap();
+    }
+
+    // 決定ボタンをクリックした際に行う処理
+    public static void PushChooseCardButton()
+    {
+        // カードを選べるたいむでカードを選んでいたら
+        if (canChooseCard == true　&& isChoseCard == true)
+        {
+            isPushedChooseCardButton = true;
+            Debug.Log("選ばれたカード：" + choseCardTag);
+        }
     }
 }
