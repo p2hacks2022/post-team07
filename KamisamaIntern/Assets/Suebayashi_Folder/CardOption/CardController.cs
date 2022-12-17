@@ -81,7 +81,9 @@ public class CardController : MonoBehaviour
             {
                 if (result.gameObject.name == "CardImage(Clone)")
                 {
+                    // カーソルが置かれた画像のタグを保存する
                     tagCursorOnCard = result.gameObject.tag;
+                    // カーソルが置かれた際にカードの情報を提示する
                     shouldShowCardInfomation = true;
                     Debug.Log(tagCursorOnCard);
 
@@ -93,10 +95,6 @@ public class CardController : MonoBehaviour
                         isChoseCard = true;
                         //ChoseCard();
                     }
-                }
-                else
-                {
-                    shouldShowCardInfomation = false;
                 }
             }
 
@@ -149,6 +147,7 @@ public class CardController : MonoBehaviour
             countTimeOfChoosingCard = defaultCountTimeOfChoosingCard; // 制限時間の初期化
             canChooseCard = false;
             isPushedChooseCardButton = false;
+            shouldShowCardInfomation = false;
             ChoseCard();
         }
         // 何も選択されないままカウントが0になったらシミュレートへ
@@ -159,6 +158,7 @@ public class CardController : MonoBehaviour
             countTimeOfChoosingCard = defaultCountTimeOfChoosingCard; // 制限時間の初期化
             canChooseCard = false;
             isSimulatedOnMap = true;
+            shouldShowCardInfomation = false;
             SimulateOnMap();
         }
     }

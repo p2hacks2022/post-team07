@@ -32,6 +32,8 @@ public class CardInfomation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(CardController.shouldShowCardInfomation); 
+
         // カーソルがカードの上に置かれたら
         if(CardController.shouldShowCardInfomation == true)
         {
@@ -52,9 +54,9 @@ public class CardInfomation : MonoBehaviour
         {
             if(tag == cardDataBase.GetCardLists()[i].GetTag())
             {
+                popupOfCardInfomation.SetActive(true);
                 cardTitle.text = cardDataBase.GetCardLists()[i].GetCardName();
                 cardInfomation.text = cardDataBase.GetCardLists()[i].GetCardInformation();
-                popupOfCardInfomation.SetActive(true);
             }
         }
     }
