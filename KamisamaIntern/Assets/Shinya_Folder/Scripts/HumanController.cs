@@ -27,7 +27,7 @@ public class HumanController : MonoBehaviour
     void Start()
     {
         //変数の初期化
-        health = 20;
+        health = 10;
         maxHealth = 20;
         developmentPoint = 1;
     }
@@ -73,6 +73,19 @@ public class HumanController : MonoBehaviour
                 {
                     //体力を体力上限の数値まで戻す
                     health = maxHealth;
+                }
+                break;
+            case "Tree":
+                if(health >= 15)
+                {
+                    //Resoucesファイルから、Houseプレハブを取得
+                    GameObject prefab = (GameObject)Resources.Load("house");
+
+                    //Houseを複製
+                    GameObject cloneBurnt = Instantiate(prefab, col.transform.position, Quaternion.identity);
+                    
+                    //ぶつかった対象を消す
+                    Destroy(col.gameObject);
                 }
                 break;
         }
