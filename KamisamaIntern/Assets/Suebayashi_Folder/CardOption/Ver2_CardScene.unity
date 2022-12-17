@@ -1634,7 +1634,7 @@ GameObject:
   - component: {fileID: 233630408}
   m_Layer: 0
   m_Name: MyCard2
-  m_TagString: Untagged
+  m_TagString: CardPanel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7103,7 +7103,7 @@ GameObject:
   - component: {fileID: 1025742932}
   m_Layer: 0
   m_Name: MyCard1
-  m_TagString: Untagged
+  m_TagString: CardPanel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10069,7 +10069,7 @@ GameObject:
   - component: {fileID: 1519476385}
   m_Layer: 0
   m_Name: MyCard3
-  m_TagString: Untagged
+  m_TagString: CardPanel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

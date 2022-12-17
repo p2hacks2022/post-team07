@@ -46,7 +46,11 @@ public class CardController : MonoBehaviour
     // カードの情報を提示するかどうか
     public static bool shouldShowCardInfomation;
 
+    // カードスキルを発動するための関数がまとまっているスクリプトからインスタンスを生成
     public CardSkillController cardSkillController;
+
+    // 何枚目のカードが選択されたかを保存
+    public static int NumOfChoosingcard;
 
     // Start is called before the first frame update
     void Start()
@@ -97,6 +101,25 @@ public class CardController : MonoBehaviour
                         choseCardTag = result.gameObject.tag;
                         isChoseCard = true;
                         //ChoseCard();
+                    }
+                }else if(result.gameObject.tag == "CardPanel")
+                {
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        switch(result.gameObject.name){
+                            case "MyCard1":
+                                NumOfChoosingcard = 1;
+                                break;
+                            case "MyCard2":
+                                NumOfChoosingcard = 2;
+                                break;
+                            case "MyCard3":
+                                NumOfChoosingcard = 3;
+                                break;
+                            default:
+                                NumOfChoosingcard = 0;
+                                break;
+                        }
                     }
                 }
             }
@@ -156,6 +179,7 @@ public class CardController : MonoBehaviour
         // 何も選択されないままカウントが0になったらシミュレートへ
         else if (countTimeOfChoosingCard <= 0 && isPushedChooseCardButton == false)
         {
+            NumOfChoosingcard = 0;
             countTimeOfChoosingCard = 0f;
             countTimeOfChoosingCardText.text = " ";
             countTimeOfChoosingCard = defaultCountTimeOfChoosingCard; // 制限時間の初期化
