@@ -32,8 +32,6 @@ public class CardInfomation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(CardController.shouldShowCardInfomation); 
-
         // カーソルがカードの上に置かれたら
         if(CardController.shouldShowCardInfomation == true)
         {

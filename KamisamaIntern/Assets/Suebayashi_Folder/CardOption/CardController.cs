@@ -43,12 +43,25 @@ public class CardController : MonoBehaviour
     // カーソル置いている画像のタグを保存
     public static string tagCursorOnCard;
 
+    // カードの情報を提示するかどうか
     public static bool shouldShowCardInfomation;
+
+    // カードスキルを発動するための関数がまとまっているスクリプトからインスタンスを生成
+    public CardSkillController cardSkillController;
+
+    // 何枚目のカードが選択されたかを保存
+    public static int NumOfChoosingcard;
+
+    // どのカードが選択されているかがわかるパネル
+    [SerializeField]
+    private GameObject[] chosingPanel;
 
     // Start is called before the first frame update
     void Start()
     {
         defaultCountTimeOfChoosingCard = countTimeOfChoosingCard;
+
+        PanelFalse();
 
         // 始めにマップでシミュレート
         SimulateOnMap();
@@ -95,6 +108,34 @@ public class CardController : MonoBehaviour
                         isChoseCard = true;
                         //ChoseCard();
                     }
+                }else if(result.gameObject.tag == "CardPanel")
+                {
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        switch(result.gameObject.name){
+                            case "MyCard1":
+                                NumOfChoosingcard = 1;
+                                chosingPanel[0].SetActive(true);
+                                chosingPanel[1].SetActive(false);
+                                chosingPanel[2].SetActive(false);
+                                break;
+                            case "MyCard2":
+                                NumOfChoosingcard = 2;
+                                chosingPanel[0].SetActive(false);
+                                chosingPanel[1].SetActive(true);
+                                chosingPanel[2].SetActive(false);
+                                break;
+                            case "MyCard3":
+                                NumOfChoosingcard = 3;
+                                chosingPanel[0].SetActive(false);
+                                chosingPanel[1].SetActive(false);
+                                chosingPanel[2].SetActive(true);
+                                break;
+                            default:
+                                NumOfChoosingcard = 0;
+                                break;
+                        }
+                    }
                 }
             }
 
@@ -137,13 +178,14 @@ public class CardController : MonoBehaviour
         // カードを選ぶたいむの時間を刻む
         countTimeOfChoosingCard -= Time.deltaTime;
         Debug.Log(countTimeOfChoosingCard);
-        countTimeOfChoosingCardText.text = "あと" + Mathf.Round(countTimeOfChoosingCard*100.0f)/100 + "秒！";
+        countTimeOfChoosingCardText.text = "【カード選択モード】\n" + "  あと" + Mathf.Round(countTimeOfChoosingCard*100.0f)/100 + "秒！";
 
         // カウントの途中でカードが選択されたらその際の処理へ
         if (isChoseCard == true && isPushedChooseCardButton == true)
         {
+            PanelFalse();
             countTimeOfChoosingCard = 0f;
-            countTimeOfChoosingCardText.text = " ";
+            countTimeOfChoosingCardText.text = "【シミュレーションモード】";
             countTimeOfChoosingCard = defaultCountTimeOfChoosingCard; // 制限時間の初期化
             canChooseCard = false;
             isPushedChooseCardButton = false;
@@ -153,8 +195,10 @@ public class CardController : MonoBehaviour
         // 何も選択されないままカウントが0になったらシミュレートへ
         else if (countTimeOfChoosingCard <= 0 && isPushedChooseCardButton == false)
         {
+            NumOfChoosingcard = 0;
+            PanelFalse();
             countTimeOfChoosingCard = 0f;
-            countTimeOfChoosingCardText.text = " ";
+            countTimeOfChoosingCardText.text = "【シミュレーションモード】";
             countTimeOfChoosingCard = defaultCountTimeOfChoosingCard; // 制限時間の初期化
             canChooseCard = false;
             isSimulatedOnMap = true;
@@ -176,13 +220,53 @@ public class CardController : MonoBehaviour
     }
 
     // 決定ボタンをクリックした際に行う処理
-    public static void PushChooseCardButton()
+    public void PushChooseCardButton()
     {
         // カードを選べるたいむでカードを選んでいたら
         if (canChooseCard == true　&& isChoseCard == true)
         {
             isPushedChooseCardButton = true;
             Debug.Log("選ばれたカード：" + choseCardTag);
+
+            switch (choseCardTag)
+            {
+                case "kaminari":
+                    cardSkillController.ThunderCardEffect();
+                    break;
+                case "rain":
+                    cardSkillController.RainCardEffect();
+                    break;
+                case "sun":
+                    cardSkillController.SunCardEffect();
+                    break;
+                case "world_tree":
+                    cardSkillController.PlantCardEffect();
+                    break;
+                case "mutant":
+                    cardSkillController.MutationCardEffect();
+                    break;
+                case "innseki":
+                    cardSkillController.MeteorCardEffect();
+                    break;
+                case "virus":
+                    cardSkillController.DiseaseCardEffect();
+                    break;
+                case "heavy_rain":
+                    cardSkillController.HeavyRainCardEffect();
+                    break;
+                default:
+                    Debug.Log("まだ作られていないカード");
+                    break;
+                    
+            }
+        }
+    }
+
+    private void PanelFalse()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            chosingPanel[i].SetActive(false);
         }
     }
 }
