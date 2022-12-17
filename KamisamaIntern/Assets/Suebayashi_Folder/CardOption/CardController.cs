@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class CardController : MonoBehaviour
 {
@@ -19,6 +20,10 @@ public class CardController : MonoBehaviour
     [SerializeField]
     private float countTimeOfChoosingCard;
 
+    // カードを選ぶ際のカウントダウンを表示
+    [SerializeField]
+    private TextMeshProUGUI countTimeOfChoosingCardText;
+
     // シミュレートの時間
     [SerializeField]
     private float timeOfSimulation;
@@ -26,6 +31,8 @@ public class CardController : MonoBehaviour
     // カードを選択する際の制限時間の初期値を保存
     private float defaultCountTimeOfChoosingCard;
 
+    // 選択したカードのタグを格納
+    public static string choseCardTag;
 
     //RaycastAllの引数
     private PointerEventData pointData;
@@ -70,9 +77,11 @@ public class CardController : MonoBehaviour
                     if (Input.GetMouseButtonDown(0))
                     {
                         /* カードがクリックされた際に行う処理 */
-                        Debug.Log("選ばれたカード：" + result.gameObject.tag);
+                        // 選択したカードのタグを保存
+                        choseCardTag = result.gameObject.tag;
+                        Debug.Log("選ばれたカード：" + choseCardTag);
                         isChoseCard = true;
-                        ChoseCard();
+                        //ChoseCard();
                     }
 
                 }
@@ -114,12 +123,16 @@ public class CardController : MonoBehaviour
     　 （カウントの途中でカードが選択されたらカウントを中断）*/
     private void CountTimeOfChoosingCard()
     {
+        // カードを選ぶたいむの時間を刻む
         countTimeOfChoosingCard -= Time.deltaTime;
         Debug.Log(countTimeOfChoosingCard);
+        countTimeOfChoosingCardText.text = "あと" + Mathf.Round(countTimeOfChoosingCard*100.0f)/100 + "秒！";
 
         // カウントの途中でカードが選択されたらその際の処理へ
         if (isChoseCard == true)
         {
+            countTimeOfChoosingCard = 0f;
+            countTimeOfChoosingCardText.text = " ";
             countTimeOfChoosingCard = defaultCountTimeOfChoosingCard; // 制限時間の初期化
             canChooseCard = false;
             ChoseCard();
@@ -127,6 +140,8 @@ public class CardController : MonoBehaviour
         // 何も選択されないままカウントが0になったらシミュレートへ
         else if (isChoseCard == false && countTimeOfChoosingCard <= 0)
         {
+            countTimeOfChoosingCard = 0f;
+            countTimeOfChoosingCardText.text = " ";
             countTimeOfChoosingCard = defaultCountTimeOfChoosingCard; // 制限時間の初期化
             canChooseCard = false;
             isSimulatedOnMap = true;

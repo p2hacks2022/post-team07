@@ -35,13 +35,11 @@ public class CurSorOnCard : MonoBehaviour
         card.transform.position += Vector3.up * cardPositionTimes;
         // カードを拡大させる
         card.transform.localScale = cardDefaultSize * cardSizeTimes;
-
     }
 
     // マウスカーソルが離れたとき
     public void onPointerExit()
     {
-
         // カードの位置を元に戻す
         card.transform.position -= Vector3.up * cardPositionTimes;
         // カードの大きさを元に戻す

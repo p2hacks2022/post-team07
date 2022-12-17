@@ -6,18 +6,18 @@ using UnityEngine.UI;
 public class AddCard : MonoBehaviour
 {
     // RD‚É¶¬‚³‚ê‚éƒJ[ƒh‚ÌPrefab
-    [SerializeField] 
+    [SerializeField]
     Image cardPrefab;
 
     // RD‚Ì–‡”
-    [SerializeField] 
+    [SerializeField]
     int allCardNum;
 
     // RD‚Ì‰½–‡–Ú‚ª’Ç‰Á‚³‚ê‚½‚©
     int nowCardNum = 0;
 
     /* Card1~3‚ÌTransform */
-    [SerializeField] 
+    [SerializeField]
     Transform card1Tf;
     [SerializeField]
     Transform card2Tf;
@@ -66,11 +66,11 @@ public class AddCard : MonoBehaviour
             CardController.isSimulatedOnMap = false;
         }
         // ‡@ˆÈ~ARD‚©‚ç1–‡èD‚É’Ç‰Á‚³‚ê‚é‚ÆèD‚©‚ç1–‡”pŠü‚³‚ê‚é
-        else if(CardController.isSimulatedOnMap == true && isAddedFirst == true)
+        else if (CardController.isSimulatedOnMap == true && isAddedFirst == true)
         {
-            AddAndDiscardCard();
+                AddAndDiscardCard();
 
-            CardController.isSimulatedOnMap = false;
+                CardController.isSimulatedOnMap = false; // Ä“x‚±‚Ìif•¶‚ğ’Ê‚ç‚È‚¢‚æ‚¤‚É
         }
     }
 
