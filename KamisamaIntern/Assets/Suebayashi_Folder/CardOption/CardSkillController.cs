@@ -7,6 +7,22 @@ public class CardSkillController : MonoBehaviour
     //焼け野原に変えた数
     private int burntCount;
 
+    // 農業の開始
+    public void AgricultureCardEffect()
+    {
+        Debug.Log("農業の開始の効果発動！！！");
+        //農場を生成するようになる
+        HumanController.isFarm = true;
+    }
+
+    // 産業革命
+    public void IndustrialCardEffect()
+    {
+        Debug.Log("産業革命の効果発動！！！");
+        // 工場を生成するようになる
+        HumanController.isFactory = true;
+    }
+
     // 雷
     public void ThunderCardEffect()
     {

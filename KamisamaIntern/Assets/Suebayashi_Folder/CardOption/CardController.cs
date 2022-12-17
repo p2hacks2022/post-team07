@@ -254,8 +254,14 @@ public class CardController : MonoBehaviour
                 case "heavy_rain":
                     cardSkillController.HeavyRainCardEffect();
                     break;
+                case "industrial_revolution":
+                    cardSkillController.IndustrialCardEffect();
+                    break;
+                case "starting_agriculture":
+                    cardSkillController.AgricultureCardEffect();
+                    break;
                 default:
-                    Debug.Log("Ç‹ÇæçÏÇÁÇÍÇƒÇ¢Ç»Ç¢ÉJÅ[Éh");
+                    Debug.Log(" ÇªÇÃëº ");
                     break;
                     
             }
