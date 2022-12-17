@@ -41,7 +41,9 @@ public class CardController : MonoBehaviour
     public static bool isPushedChooseCardButton;
 
     // カーソル置いている画像のタグを保存
-    private string tagCursorOnCard;
+    public static string tagCursorOnCard;
+
+    public static bool shouldShowCardInfomation;
 
     // Start is called before the first frame update
     void Start()
@@ -50,7 +52,6 @@ public class CardController : MonoBehaviour
 
         // 始めにマップでシミュレート
         SimulateOnMap();
-
 
         //RaycastAllの引数PointerEvenDataを作成
         pointData = new PointerEventData(EventSystem.current);
@@ -81,6 +82,7 @@ public class CardController : MonoBehaviour
                 if (result.gameObject.name == "CardImage(Clone)")
                 {
                     tagCursorOnCard = result.gameObject.tag;
+                    shouldShowCardInfomation = true;
                     Debug.Log(tagCursorOnCard);
 
                     if (Input.GetMouseButtonDown(0))
@@ -91,7 +93,10 @@ public class CardController : MonoBehaviour
                         isChoseCard = true;
                         //ChoseCard();
                     }
-
+                }
+                else
+                {
+                    shouldShowCardInfomation = false;
                 }
             }
 
