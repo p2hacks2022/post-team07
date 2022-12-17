@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class CardController : MonoBehaviour
 {
@@ -13,11 +14,15 @@ public class CardController : MonoBehaviour
     public static bool isSimulatedOnMap = true;
 
     // カードが選択されたかどうか
-    private bool isChoseCard = false;
+    public static bool isChoseCard = false;
 
     // カード選択ターンの制限時間
     [SerializeField]
     private float countTimeOfChoosingCard;
+
+    // カードを選ぶ際のカウントダウンを表示
+    [SerializeField]
+    private TextMeshProUGUI countTimeOfChoosingCardText;
 
     // シミュレートの時間
     [SerializeField]
@@ -26,9 +31,19 @@ public class CardController : MonoBehaviour
     // カードを選択する際の制限時間の初期値を保存
     private float defaultCountTimeOfChoosingCard;
 
+    // 選択したカードのタグを格納
+    public static string choseCardTag;
 
     //RaycastAllの引数
     private PointerEventData pointData;
+
+    // 決定ボタンが押されたかどうか
+    public static bool isPushedChooseCardButton;
+
+    // カーソル置いている画像のタグを保存
+    public static string tagCursorOnCard;
+
+    public static bool shouldShowCardInfomation;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +52,6 @@ public class CardController : MonoBehaviour
 
         // 始めにマップでシミュレート
         SimulateOnMap();
-
 
         //RaycastAllの引数PointerEvenDataを作成
         pointData = new PointerEventData(EventSystem.current);
@@ -57,23 +71,32 @@ public class CardController : MonoBehaviour
             //RaycastAllの結果格納用のリスト作成
             List<RaycastResult> RayResult = new List<RaycastResult>();
 
-            if (Input.GetMouseButtonDown(0))
+            //PointerEvenDataに、マウスの位置をセット
+            pointData.position = Input.mousePosition;
+
+            //RayCast（スクリーン座標）
+            EventSystem.current.RaycastAll(pointData, RayResult);
+
+            foreach (RaycastResult result in RayResult)
             {
-                //PointerEvenDataに、マウスの位置をセット
-                pointData.position = Input.mousePosition;
-
-                //RayCast（スクリーン座標）
-                EventSystem.current.RaycastAll(pointData, RayResult);
-
-                foreach (RaycastResult result in RayResult)
+                if (result.gameObject.name == "CardImage(Clone)")
                 {
-                    if (result.gameObject.name == "CardImage(Clone)")
+                    tagCursorOnCard = result.gameObject.tag;
+                    shouldShowCardInfomation = true;
+                    Debug.Log(tagCursorOnCard);
+
+                    if (Input.GetMouseButtonDown(0))
                     {
                         /* カードがクリックされた際に行う処理 */
-                        Debug.Log("選ばれたカード："　+ result.gameObject.tag);
+                        // 選択したカードのタグを保存
+                        choseCardTag = result.gameObject.tag;
                         isChoseCard = true;
-                        ChoseCard();
+                        //ChoseCard();
                     }
+                }
+                else
+                {
+                    shouldShowCardInfomation = false;
                 }
             }
 
@@ -113,19 +136,26 @@ public class CardController : MonoBehaviour
     　 （カウントの途中でカードが選択されたらカウントを中断）*/
     private void CountTimeOfChoosingCard()
     {
+        // カードを選ぶたいむの時間を刻む
         countTimeOfChoosingCard -= Time.deltaTime;
         Debug.Log(countTimeOfChoosingCard);
+        countTimeOfChoosingCardText.text = "あと" + Mathf.Round(countTimeOfChoosingCard*100.0f)/100 + "秒！";
 
         // カウントの途中でカードが選択されたらその際の処理へ
-        if (isChoseCard == true)
+        if (isChoseCard == true && isPushedChooseCardButton == true)
         {
+            countTimeOfChoosingCard = 0f;
+            countTimeOfChoosingCardText.text = " ";
             countTimeOfChoosingCard = defaultCountTimeOfChoosingCard; // 制限時間の初期化
             canChooseCard = false;
+            isPushedChooseCardButton = false;
             ChoseCard();
         }
         // 何も選択されないままカウントが0になったらシミュレートへ
-        else if (isChoseCard == false && countTimeOfChoosingCard <= 0)
+        else if (countTimeOfChoosingCard <= 0 && isPushedChooseCardButton == false)
         {
+            countTimeOfChoosingCard = 0f;
+            countTimeOfChoosingCardText.text = " ";
             countTimeOfChoosingCard = defaultCountTimeOfChoosingCard; // 制限時間の初期化
             canChooseCard = false;
             isSimulatedOnMap = true;
@@ -143,5 +173,16 @@ public class CardController : MonoBehaviour
         isSimulatedOnMap = true;
 
         SimulateOnMap();
+    }
+
+    // 決定ボタンをクリックした際に行う処理
+    public static void PushChooseCardButton()
+    {
+        // カードを選べるたいむでカードを選んでいたら
+        if (canChooseCard == true　&& isChoseCard == true)
+        {
+            isPushedChooseCardButton = true;
+            Debug.Log("選ばれたカード：" + choseCardTag);
+        }
     }
 }
