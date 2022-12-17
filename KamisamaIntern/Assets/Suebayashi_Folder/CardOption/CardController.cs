@@ -37,7 +37,11 @@ public class CardController : MonoBehaviour
     //RaycastAllの引数
     private PointerEventData pointData;
 
+    // 決定ボタンが押されたかどうか
     public static bool isPushedChooseCardButton;
+
+    // カーソル置いている画像のタグを保存
+    private string tagCursorOnCard;
 
     // Start is called before the first frame update
     void Start()
@@ -76,6 +80,9 @@ public class CardController : MonoBehaviour
             {
                 if (result.gameObject.name == "CardImage(Clone)")
                 {
+                    tagCursorOnCard = result.gameObject.tag;
+                    Debug.Log(tagCursorOnCard);
+
                     if (Input.GetMouseButtonDown(0))
                     {
                         /* カードがクリックされた際に行う処理 */
