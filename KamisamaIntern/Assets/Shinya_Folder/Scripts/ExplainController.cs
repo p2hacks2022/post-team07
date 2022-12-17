@@ -19,6 +19,8 @@ public class ExplainController : MonoBehaviour
 
     public GameObject selectPanel;
 
+    public GameObject buttonClosePlayGuide;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +38,7 @@ public class ExplainController : MonoBehaviour
         myGame.pageNum = 0;
         explainPanel.SetActive(true);
         selectPanel.SetActive(false);
+        buttonClosePlayGuide.SetActive(false);
     }
 
     public void OpenTileExplain()
@@ -43,6 +46,7 @@ public class ExplainController : MonoBehaviour
         myTile.pageNum = 0;
         tilePanel.SetActive(true);
         selectPanel.SetActive(false);
+        buttonClosePlayGuide.SetActive(false);
     }
 
     public void OpenCardExplain()
@@ -50,6 +54,7 @@ public class ExplainController : MonoBehaviour
         mycard.pageNum = 0;
         cardPanel.SetActive(true);
         selectPanel.SetActive(false);
+        buttonClosePlayGuide.SetActive(false);
     }
 
     public void BackSelect()
@@ -58,5 +63,6 @@ public class ExplainController : MonoBehaviour
         tilePanel.SetActive(false);
         cardPanel.SetActive(false);
         selectPanel.SetActive(true);
+        buttonClosePlayGuide.SetActive(true);
     }
 }

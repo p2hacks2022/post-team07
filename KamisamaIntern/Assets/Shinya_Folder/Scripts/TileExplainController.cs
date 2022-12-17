@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TileExplainController : MonoBehaviour
 {
@@ -46,5 +47,10 @@ public class TileExplainController : MonoBehaviour
         {
             pageNum--;
         }
+    }
+
+    public void ClosePlayGuide()
+    {
+        SceneManager.LoadScene("TitleScene");
     }
 }
