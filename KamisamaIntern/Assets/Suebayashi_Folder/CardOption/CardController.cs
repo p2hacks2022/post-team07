@@ -52,10 +52,16 @@ public class CardController : MonoBehaviour
     // 何枚目のカードが選択されたかを保存
     public static int NumOfChoosingcard;
 
+    // どのカードが選択されているかがわかるパネル
+    [SerializeField]
+    private GameObject[] chosingPanel;
+
     // Start is called before the first frame update
     void Start()
     {
         defaultCountTimeOfChoosingCard = countTimeOfChoosingCard;
+
+        PanelFalse();
 
         // 始めにマップでシミュレート
         SimulateOnMap();
@@ -109,12 +115,21 @@ public class CardController : MonoBehaviour
                         switch(result.gameObject.name){
                             case "MyCard1":
                                 NumOfChoosingcard = 1;
+                                chosingPanel[0].SetActive(true);
+                                chosingPanel[1].SetActive(false);
+                                chosingPanel[2].SetActive(false);
                                 break;
                             case "MyCard2":
                                 NumOfChoosingcard = 2;
+                                chosingPanel[0].SetActive(false);
+                                chosingPanel[1].SetActive(true);
+                                chosingPanel[2].SetActive(false);
                                 break;
                             case "MyCard3":
                                 NumOfChoosingcard = 3;
+                                chosingPanel[0].SetActive(false);
+                                chosingPanel[1].SetActive(false);
+                                chosingPanel[2].SetActive(true);
                                 break;
                             default:
                                 NumOfChoosingcard = 0;
@@ -168,6 +183,7 @@ public class CardController : MonoBehaviour
         // カウントの途中でカードが選択されたらその際の処理へ
         if (isChoseCard == true && isPushedChooseCardButton == true)
         {
+            PanelFalse();
             countTimeOfChoosingCard = 0f;
             countTimeOfChoosingCardText.text = " ";
             countTimeOfChoosingCard = defaultCountTimeOfChoosingCard; // 制限時間の初期化
@@ -180,6 +196,7 @@ public class CardController : MonoBehaviour
         else if (countTimeOfChoosingCard <= 0 && isPushedChooseCardButton == false)
         {
             NumOfChoosingcard = 0;
+            PanelFalse();
             countTimeOfChoosingCard = 0f;
             countTimeOfChoosingCardText.text = " ";
             countTimeOfChoosingCard = defaultCountTimeOfChoosingCard; // 制限時間の初期化
@@ -242,6 +259,14 @@ public class CardController : MonoBehaviour
                     break;
                     
             }
+        }
+    }
+
+    private void PanelFalse()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            chosingPanel[i].SetActive(false);
         }
     }
 }
