@@ -40,7 +40,11 @@ public class StorySceneController : MonoBehaviour
         scenario = scenarioAsset.text;
         
         //シナリオをaで分ける
-        scenarios = scenario.Split("a");   
+        scenarios = scenario.Split("a");
+
+        //コルーチン開始
+        StartCoroutine("SetText");
+
     }
 
     // Update is called once per frame
@@ -89,6 +93,8 @@ public class StorySceneController : MonoBehaviour
     {
         myFade.isFadeOut = true;
         yield return new WaitForSeconds(3f);
-        SceneManager.LoadScene("GameScene");
+        
+        //SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("Demo_GameScene");
     }
 }
