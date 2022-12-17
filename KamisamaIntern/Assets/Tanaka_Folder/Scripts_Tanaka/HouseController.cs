@@ -6,8 +6,7 @@ public class HouseController : MonoBehaviour
 {
 
 //何秒に一回体力が減るか
-    [SerializeField]
-    private float decreaseHealth = 5.0f;
+    public float decreaseHealth = 5.0f;
     
     //体力が減少するまでの時間
     private float decreaseTime = 5.0f;
@@ -71,10 +70,20 @@ public class HouseController : MonoBehaviour
         {
             //木の場合
             case "Tree":
+            //体力10以上で作動
                 if(health <= 10)
                 {
+                    //体力５回復
                     health += 5;
-                    Destroy(col.gameObject); 
+                    
+                    //当たったオブジェクトを消去
+                    Destroy(col.gameObject);
+                    //現在の体力が体力上限を超えていたら作動
+                    if(health > maxHealth)
+                    {
+                        //体力を体力上限の数値まで戻す
+                        health = maxHealth;
+                    } 
                 }
                 break;
         }

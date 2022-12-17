@@ -4,71 +4,88 @@ using UnityEngine;
 
 public class FactoryController : MonoBehaviour
 {
-    //‰½•b‚Éˆê‰ñ‘Ì—Í‚ªŒ¸‚é‚©
+    //ä½•ç§’ã«ä¸€å›ä½“åŠ›ãŒæ¸›ã‚‹ã‹
     [SerializeField]
     private float decreaseHealth = 5.0f;
 
-    //‘Ì—Í‚ªŒ¸­‚·‚é‚Ü‚Å‚ÌŠÔ
+    //ä½“åŠ›ãŒæ¸›å°‘ã™ã‚‹ã¾ã§ã®æ™‚é–“
     private float decreaseTime = 5.0f;
 
-    //”­“Wƒ|ƒCƒ“ƒg
+    //ç™ºå±•ãƒã‚¤ãƒ³ãƒˆ
     [SerializeField]
     private int developmentPoint;
 
-    //ƒ†ƒjƒbƒg‚Ì‘Ì—Í
-    [SerializeField]
-    private int health;
+    //ãƒ¦ãƒ‹ãƒƒãƒˆã®ä½“åŠ›
+    public int health;
 
-    //‘Ì—ÍãŒÀ
+    //ä½“åŠ›ä¸Šé™
     [SerializeField]
     private int maxHealth;
 
     // Start is called before the first frame update
     void Start()
     {
+        //å¤‰æ•°ã®åˆæœŸåŒ–
+        health = 25;
+        maxHealth = 25;
+        HumanController.decreaseHealth = 10.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //ŠÔŒo‰ßˆ—
+        //æ™‚é–“çµŒéå‡¦ç†
         decreaseTime -= Time.deltaTime;
 
-        //ŠÔ‚ª0‚É‚È‚Á‚½‚çs‚¤
+        //æ™‚é–“ãŒ0ã«ãªã£ãŸã‚‰è¡Œã†
         if (decreaseTime <= 0f)
         {
-            //‘Ì—Í‚ğ‚PŒ¸‚ç‚·
+            //ä½“åŠ›ã‚’ï¼‘æ¸›ã‚‰ã™
             health--;
 
-            //ŠÔ‚ğ‚à‚Æ‚É–ß‚·
+            //æ™‚é–“ã‚’ã‚‚ã¨ã«æˆ»ã™
             decreaseTime = 5.0f;
         }
 
-        //‘Ì—Í‚ª0‚É‚È‚Á‚½‚çs‚¤
+        //ä½“åŠ›ãŒ0ã«ãªã£ãŸã‚‰è¡Œã†
         if (health <= 0)
         {
-            //‚»‚ÌƒIƒuƒWƒFƒNƒg‚ğÁ‹‚·‚é
-            Destroy(this.gameObject);
+            //å·¥å ´ã®æ•°ã‚’èª¿ã¹ã‚‹
+            GameObject[] factorys = GameObject.FindGameObjectsWithTag("Factory");
+            
+            //å·¥å ´ã®æ•°ãŒï¼‘ã¤ã®æ™‚ä½œå‹•
+            if(factorys.Length == 1)
+            {
+                //äººé–“ã®ä½“åŠ›æ¸›å°‘æ™‚é–“ã‚’ã‚‚ã¨ã«æˆ»ã™
+                HumanController.decreaseHealth = 5.0f;
+            }
+            //ãã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¶ˆå»ã™ã‚‹
+           Destroy(this.gameObject);
         }
     }
 
-    //•¨‘Ì‚Æ‚Ô‚Â‚©‚Á‚½‚Æ‚«‚Ìˆ—
-    private void OnCollisionEnter2D(Collision2D col)
+    //ç‰©ä½“ãŒé‡ãªã£ã¦ã„ã‚‹ã¨ãã®å‡¦ç†
+    private void OnTriggerStay2D(Collider2D col)
     {
-        //‚Ô‚Â‚©‚Á‚½ƒIƒuƒWƒFƒNƒg‚Ìƒ^ƒO‚Å•ªŠò
-        switch (col.gameObject.tag)
+        //é€šã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¿ã‚°ã§åˆ†å²
+        switch(col.gameObject.tag)
         {
-            //“®•¨‚Ìê‡
-            case "Animal":
-                //‘Ì—Í‘‚â‚·
-                health += 5;
-                //ŠÔ‚ğ‚à‚Æ‚É–ß‚·
-                decreaseTime = 5.0f;
-                //‘Ì—Í‚ÌãŒÀ‚ğ‰z‚µ‚Ä‚¢‚éê‡
-                if (health > maxHealth)
+            //æœ¨ã®å ´åˆ
+            case "Tree":
+            //ä½“åŠ›10ä»¥ä¸Šã§ä½œå‹•
+                if(health <= 10)
                 {
-                    //‘Ì—Í‚ğ‘Ì—ÍãŒÀ‚Ì”’l‚Ü‚Å–ß‚·
-                    health = maxHealth;
+                    //ä½“åŠ›ï¼•å›å¾©
+                    health += 5;
+                    
+                    //å½“ãŸã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¶ˆå»
+                    Destroy(col.gameObject);
+                    //ç¾åœ¨ã®ä½“åŠ›ãŒä½“åŠ›ä¸Šé™ã‚’è¶…ãˆã¦ã„ãŸã‚‰ä½œå‹•
+                    if(health > maxHealth)
+                    {
+                        //ä½“åŠ›ã‚’ä½“åŠ›ä¸Šé™ã®æ•°å€¤ã¾ã§æˆ»ã™
+                        health = maxHealth;
+                    } 
                 }
                 break;
         }
