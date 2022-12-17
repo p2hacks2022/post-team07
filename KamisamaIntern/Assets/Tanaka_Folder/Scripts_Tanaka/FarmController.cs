@@ -25,7 +25,10 @@ public class FarmController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        //変数の初期化
+        health = 23;
+        maxHealth = 23;
+        HumanController.decreaseHealth = 7.0f;
     }
 
     // Update is called once per frame
@@ -47,28 +50,42 @@ public class FarmController : MonoBehaviour
         //体力が0になったら行う
         if (health <= 0)
         {
+            //農場の数を調べる
+            GameObject[] farms = GameObject.FindGameObjectsWithTag("Farm");
+            
+            //農場の数が１つのみである時作動
+            if(farms.Length == 1)
+            {
+                //人間の体力減少時間をもとに戻す
+                HumanController.decreaseHealth = 5.0f;
+            }
             //そのオブジェクトを消去する
-           // Destroy(this.gameObject);
+           Destroy(this.gameObject);
         }
     }
 
-    //物体とぶつかったときの処理
-    private void OnCollisionEnter2D(Collision2D col)
+    //物体が重なっているときの処理
+    private void OnTriggerStay2D(Collider2D col)
     {
-        //ぶつかったオブジェクトのタグで分岐
-        switch (col.gameObject.tag)
+        //通ったオブジェクトのタグで分岐
+        switch(col.gameObject.tag)
         {
-            //動物の場合
-            case "Animal":
-                //体力増やす
-                health += 5;
-                //時間をもとに戻す
-                decreaseTime = 5.0f;
-                //体力の上限を越している場合
-                if (health > maxHealth)
+            //木の場合
+            case "Tree":
+            //体力10以上で作動
+                if(health <= 10)
                 {
-                    //体力を体力上限の数値まで戻す
-                    health = maxHealth;
+                    //体力５回復
+                    health += 5;
+                    
+                    //当たったオブジェクトを消去
+                    Destroy(col.gameObject);
+                    //現在の体力が体力上限を超えていたら作動
+                    if(health > maxHealth)
+                    {
+                        //体力を体力上限の数値まで戻す
+                        health = maxHealth;
+                    } 
                 }
                 break;
         }
