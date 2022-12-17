@@ -37,20 +37,39 @@ public class PointCount : MonoBehaviour
     List<GameObject> worldTrees = new List<GameObject>();
     List<GameObject> factorys = new List<GameObject>();
 
+    private float totalTime;
+
+    [SerializeField]
+    private int minute;
+    
+    [SerializeField]
+    private float seconds;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        totalTime = minute * 60 + seconds;
     }
 
     // Update is called once per frame
     void Update()
     {
         //時間を測る
-        time += Time.deltaTime;
+        if (totalTime <= 0f)
+        {
+            return;
+        }
+        if (CardController.canChooseCard == false)
+        {
+            totalTime = minute * 60 + seconds;
+            totalTime -= Time.deltaTime;
+        }
+
+        minute = (int)totalTime / 60;
+        seconds = totalTime - minute * 60;
 
         //まだ数えてなくて、制限時間になったら作動
-        if(isCount ==false && (int)time  == limitTime)
+        if(isCount ==false && totalTime < 1.0f)
         {
             //合計自然ポイントを取得
             naturePoint = gatherNaturePoint();
