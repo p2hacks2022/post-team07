@@ -5,71 +5,76 @@ using UnityEngine;
 public class HouseController : MonoBehaviour
 {
 
-    //‰½•b‚Éˆê‰ñ‘Ì—Í‚ªŒ¸‚é‚©
+//ä½•ç§’ã«ä¸€å›ä½“åŠ›ãŒæ¸›ã‚‹ã‹
     [SerializeField]
     private float decreaseHealth = 5.0f;
-
-    //‘Ì—Í‚ªŒ¸­‚·‚é‚Ü‚Å‚ÌŠÔ
+    
+    //ä½“åŠ›ãŒæ¸›å°‘ã™ã‚‹ã¾ã§ã®æ™‚é–“
     private float decreaseTime = 5.0f;
 
-    //”­“Wƒ|ƒCƒ“ƒg
-    [SerializeField]
-    private int developmentPoint;
-
-    //ƒ†ƒjƒbƒg‚Ì‘Ì—Í
+    //ãƒ¦ãƒ‹ãƒƒãƒˆã®ä½“åŠ›
     [SerializeField]
     private int health;
 
-    //‘Ì—ÍãŒÀ
+    //ç™ºå±•ãƒã‚¤ãƒ³ãƒˆ
+    [SerializeField]
+    private int developmentPoint;
+
+    //ä½“åŠ›ä¸Šé™
     [SerializeField]
     private int maxHealth;
 
     // Start is called before the first frame update
     void Start()
     {
+        //å¤‰æ•°ã®åˆæœŸåŒ–
+        health = 20;
+        maxHealth = 20;
+        developmentPoint = 4;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //ŠÔŒo‰ßˆ—
+        //æ™‚é–“çµŒéå‡¦ç†
         decreaseTime -= Time.deltaTime;
-
-        //ŠÔ‚ª0‚É‚È‚Á‚½‚çs‚¤
-        if (decreaseTime <= 0f)
+        
+        //æ™‚é–“ãŒ0ã«ãªã£ãŸã‚‰è¡Œã†
+        if(decreaseTime <= 0f)
         {
-            //‘Ì—Í‚ğ‚PŒ¸‚ç‚·
+            //Resoucesãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ã€Humanãƒ—ãƒ¬ãƒãƒ–ã‚’å–å¾—
+            GameObject prefab = (GameObject)Resources.Load("Human 1");
+
+            //Burnt_Fieldã‚’è¤‡è£½
+            GameObject cloneBurnt = Instantiate(prefab, this.transform.position, Quaternion.identity);
+
+            //ä½“åŠ›ã‚’ï¼‘æ¸›ã‚‰ã™
             health--;
 
-            //ŠÔ‚ğ‚à‚Æ‚É–ß‚·
+            //æ™‚é–“ã‚’ã‚‚ã¨ã«æˆ»ã™
             decreaseTime = 5.0f;
         }
 
-        //‘Ì—Í‚ª0‚É‚È‚Á‚½‚çs‚¤
-        if (health <= 0)
+        //ä½“åŠ›ãŒ0ã«ãªã£ãŸã‚‰è¡Œã†
+        if(health <= 0)
         {
-            //‚»‚ÌƒIƒuƒWƒFƒNƒg‚ğÁ‹‚·‚é
+            //ãã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¶ˆå»ã™ã‚‹
             Destroy(this.gameObject);
         }
     }
 
-    //•¨‘Ì‚Æ‚Ô‚Â‚©‚Á‚½‚Æ‚«‚Ìˆ—
-    private void OnCollisionEnter2D(Collision2D col)
+    //ç‰©ä½“ãŒé‡ãªã£ã¦ã„ã‚‹ã¨ãã®å‡¦ç†
+    private void OnTriggerStay2D(Collider2D col)
     {
-        //‚Ô‚Â‚©‚Á‚½ƒIƒuƒWƒFƒNƒg‚Ìƒ^ƒO‚Å•ªŠò
-        switch (col.gameObject.tag)
+        //é€šã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¿ã‚°ã§åˆ†å²
+        switch(col.gameObject.tag)
         {
-            //“®•¨‚Ìê‡
-            case "Animal":
-                //‘Ì—Í‘‚â‚·
-                health += 5;
-                //ŠÔ‚ğ‚à‚Æ‚É–ß‚·
-                decreaseTime = 5.0f;
-                //‘Ì—Í‚ÌãŒÀ‚ğ‰z‚µ‚Ä‚¢‚éê‡
-                if (health > maxHealth)
+            //æœ¨ã®å ´åˆ
+            case "Tree":
+                if(health <= 10)
                 {
-                    //‘Ì—Í‚ğ‘Ì—ÍãŒÀ‚Ì”’l‚Ü‚Å–ß‚·
-                    health = maxHealth;
+                    health += 5;
+                    Destroy(col.gameObject); 
                 }
                 break;
         }
