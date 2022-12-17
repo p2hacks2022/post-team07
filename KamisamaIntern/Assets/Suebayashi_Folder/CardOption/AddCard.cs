@@ -124,28 +124,58 @@ public class AddCard : MonoBehaviour
 
             /* ------------------------------------------------------- */
 
-            /* ----------------ŽèŽD1–‡–Ú‚©‚çŽèŽD2–‡–Ú‚Ö‚ÌˆÚ“®-------------- */
+            if (CardController.NumOfChoosingcard == 0 || CardController.NumOfChoosingcard == 2 || CardController.NumOfChoosingcard == 3)
+            {
 
-            allCards[nowCardNum - 1].transform.SetParent(card2Tf);
-            allCards[nowCardNum - 1].transform.localPosition = Vector2.zero;
+                /* ----------------ŽèŽD1–‡–Ú‚©‚çŽèŽD2–‡–Ú‚Ö‚ÌˆÚ“®-------------- */
 
-            /* ------------------------------------------------------- */
+                allCards[nowCardNum - 1].transform.SetParent(card2Tf);
+                allCards[nowCardNum - 1].transform.localPosition = Vector2.zero;
 
-            /* ----------------ŽèŽD2–‡–Ú‚©‚çŽèŽD3–‡–Ú‚Ö‚ÌˆÚ“®-------------- */
+                /* ------------------------------------------------------- */
 
-            allCards[nowCardNum - 2].transform.SetParent(card3Tf);
-            allCards[nowCardNum - 2].transform.localPosition = Vector2.zero;
+            }
 
-            /* ------------------------------------------------------- */
+            if (CardController.NumOfChoosingcard == 0 || CardController.NumOfChoosingcard == 3)
+            {
+
+                /* ----------------ŽèŽD2–‡–Ú‚©‚çŽèŽD3–‡–Ú‚Ö‚ÌˆÚ“®-------------- */
+
+                allCards[nowCardNum - 2].transform.SetParent(card3Tf);
+                allCards[nowCardNum - 2].transform.localPosition = Vector2.zero;
+
+                /* ------------------------------------------------------- */
+            }
 
             /* ----------------ŽèŽD3–‡–Ú‚©‚çŽRŽD‚Ö‚ÌˆÚ“®-------------- */
 
-            allCards[nowCardNum - 3].transform.SetParent(deckTf);
-            allCards[nowCardNum - 3].transform.localPosition = Vector2.zero;
+            //allCards[nowCardNum - 3].transform.SetParent(deckTf);
+            //allCards[nowCardNum - 3].transform.localPosition = Vector2.zero;
 
             /* ------------------------------------------------------- */
 
+            if(CardController.NumOfChoosingcard == 1)
+            {
+                allCards[nowCardNum - 1].transform.SetParent(deckTf);
+                allCards[nowCardNum - 1].transform.localPosition = Vector2.zero;
+            }else if(CardController.NumOfChoosingcard == 2)
+            {
+                allCards[nowCardNum - 2].transform.SetParent(deckTf);
+                allCards[nowCardNum - 2].transform.localPosition = Vector2.zero;
+            }else if(CardController.NumOfChoosingcard == 3)
+            {
+                allCards[nowCardNum - 3].transform.SetParent(deckTf);
+                allCards[nowCardNum - 3].transform.localPosition = Vector2.zero;
+            }
+            else
+            {
+                allCards[nowCardNum - 3].transform.SetParent(deckTf);
+                allCards[nowCardNum - 3].transform.localPosition = Vector2.zero;
+            }
+
             nowCardNum++;
         }
+
+        CardController.NumOfChoosingcard = 0;
     }
 }
