@@ -95,6 +95,6 @@ public class StorySceneController : MonoBehaviour
         yield return new WaitForSeconds(3f);
         
         //SceneManager.LoadScene("GameScene");
-        SceneManager.LoadScene("Demo_GameScene");
+        SceneManager.LoadScene("GameScene_Main");
     }
 }
