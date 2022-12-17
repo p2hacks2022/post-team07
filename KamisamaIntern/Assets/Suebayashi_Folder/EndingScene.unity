@@ -456,6 +456,7 @@ GameObject:
   - component: {fileID: 678258853}
   - component: {fileID: 678258852}
   - component: {fileID: 678258856}
+  - component: {fileID: 678258857}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -559,7 +560,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 3225300056331319018, guid: 1e8bedbbd4be43b479a791a1cca38318, type: 2}
   m_audioClip: {fileID: 8300000, guid: 02434038f6ac9cc4f8b62444d596e8e8, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -644,6 +645,29 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &678258857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678258851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca1ed0309d1c8dd4895822406acf507f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: e612b1cf820f70e4b81d144e0b7901a3, type: 3}
+  - {fileID: 21300000, guid: 351cce0b0b962bc44b86bff96eaa5d19, type: 3}
+  - {fileID: 21300000, guid: 19704cab75cae7640b66ecc440195444, type: 3}
+  - {fileID: 21300000, guid: b5ec03194eab19842a5b4fd42c5249fc, type: 3}
+  clips:
+  - {fileID: 8300000, guid: 02434038f6ac9cc4f8b62444d596e8e8, type: 3}
+  - {fileID: 8300000, guid: c607968a0909d40478586bbfcb2b3075, type: 3}
+  endingPanel: {fileID: 476318267}
+  audio: {fileID: 678258856}
+  endingNum: 0
 --- !u!1 &875194678
 GameObject:
   m_ObjectHideFlags: 0
