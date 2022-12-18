@@ -8,7 +8,7 @@ public class EndingBranch : MonoBehaviour
 
     [SerializeField]
     private Sprite[] sprites;
-    
+
     [SerializeField]
     private AudioClip[] clips;
 
@@ -25,19 +25,23 @@ public class EndingBranch : MonoBehaviour
     void Start()
     {
         endingNum = PointCount.endingNum;
-        endingPanel.sprite = sprites[endingNum -1];
 
-        switch(endingNum)
+        if (endingNum != 0)
+        {
+            endingPanel.sprite = sprites[endingNum - 1];
+        }
+
+        switch (endingNum)
         {
             case 1:
             default:
                 audio.clip = clips[0];
-            break;
+                break;
             case 2:
             case 3:
             case 4:
                 audio.clip = clips[1];
-            break;
+                break;
         }
 
         audio.Play();
