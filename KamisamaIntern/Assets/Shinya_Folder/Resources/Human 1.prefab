@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3954633122263139722}
   - component: {fileID: 3954633122263139720}
   - component: {fileID: 3954633122263139721}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Human 1
   m_TagString: Human
   m_Icon: {fileID: 0}
@@ -147,7 +147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd1c67f340a65eb4694886bc35d7bbb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  decreaseHealth: 5
   health: 0
   developmentPoint: 0
   maxHealth: 0
