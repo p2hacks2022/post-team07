@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3954633122263139722}
   - component: {fileID: 3954633122263139720}
   - component: {fileID: 3954633122263139721}
+  - component: {fileID: 3094816838932017039}
   m_Layer: 7
   m_Name: Human 1
   m_TagString: Human
@@ -95,7 +96,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3954633122263139719}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 430da7ab512700a4984bef06a832358f, type: 2}
   m_IsTrigger: 0
@@ -165,3 +166,19 @@ MonoBehaviour:
   moveX: 0.01
   moveY: 0
   pastnum: 0
+--- !u!58 &3094816838932017039
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3954633122263139719}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.35
