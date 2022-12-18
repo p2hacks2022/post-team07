@@ -49,5 +49,5 @@ C#
 利用したフレームワーク・ライブラリ  
 unity / github
 
-その他開発に使用したツール・サービス
-Github Desktop
+その他開発に使用したツール・サービス  
+Github Desktop / Figma / EDGE / MediBang Paint
