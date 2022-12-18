@@ -50,4 +50,4 @@ C#
 unity / github
 
 その他開発に使用したツール・サービス  
-Github Desktop / Figma / EDGE / MediBang Paint
+Discord / Slack / Github Desktop / Figma / EDGE / MediBang Paint
