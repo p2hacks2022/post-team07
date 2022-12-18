@@ -31,7 +31,7 @@ public class AnimalController : MonoBehaviour
             case "Human":
 
                 //Resoucesファイルから、Fieldプレハブを取得
-                GameObject prefab = (GameObject)Resources.Load("Field");
+                GameObject prefab = (GameObject)Resources.Load("field");
                 //Fieldを複製
                 GameObject cloneBurnt = Instantiate(prefab, this.transform.position, Quaternion.identity);
                 //オブジェクト削除
